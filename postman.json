@@ -12,7 +12,7 @@
     },
     {
       "key": "railway_url",
-      "value": "https://your-app-name.railway.app/api",
+      "value": "https://smart-event-planner-production-59c2.up.railway.app/api",
       "description": "Railway deployment URL"
     }
   ],
@@ -116,14 +116,90 @@
             "url": {
               "raw": "{{baseUrl}}/events/{{event_id}}",
               "host": ["{{baseUrl}}"],
-              "path": ["events", "{{event_id}}"],
-              "variable": [
-                {
-                  "key": "event_id",
-                  "value": "replace_with_actual_event_id",
-                  "description": "Event ID from create event response"
-                }
-              ]
+              "path": ["events", "{{event_id}}"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Weather Integration",
+      "item": [
+        {
+          "name": "Get Weather for Mumbai (March 16)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/weather/Mumbai/2025-03-16",
+              "host": ["{{baseUrl}}"],
+              "path": ["weather", "Mumbai", "2025-03-16"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Check Weather Suitability for Cricket Event",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/events/{{event_id}}/weather-check",
+              "host": ["{{baseUrl}}"],
+              "path": ["events", "{{event_id}}", "weather-check"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Event Suitability Score",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/events/{{event_id}}/suitability",
+              "host": ["{{baseUrl}}"],
+              "path": ["events", "{{event_id}}", "suitability"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Alternative Dates for Poor Weather",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/events/{{event_id}}/alternatives",
+              "host": ["{{baseUrl}}"],
+              "path": ["events", "{{event_id}}", "alternatives"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Weather for Goa (December 10)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/weather/Goa/2025-12-10",
+              "host": ["{{baseUrl}}"],
+              "path": ["weather", "Goa", "2025-12-10"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Weather for Lonavala (October 20)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/weather/Lonavala/2025-10-20",
+              "host": ["{{baseUrl}}"],
+              "path": ["weather", "Lonavala", "2025-10-20"]
             }
           },
           "response": []
@@ -262,107 +338,3 @@
     }
   ]
 }
-    {
-      "name": "Weather Integration",
-      "item": [
-        {
-          "name": "Get Weather for Mumbai (March 16)",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/weather/Mumbai/2025-03-16",
-              "host": ["{{baseUrl}}"],
-              "path": ["weather", "Mumbai", "2025-03-16"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Check Weather Suitability for Cricket Event",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/events/{{event_id}}/weather-check",
-              "host": ["{{baseUrl}}"],
-              "path": ["events", "{{event_id}}", "weather-check"],
-              "variable": [
-                {
-                  "key": "event_id",
-                  "value": "replace_with_cricket_event_id",
-                  "description": "Cricket event ID from create event response"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Event Suitability Score",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/events/{{event_id}}/suitability",
-              "host": ["{{baseUrl}}"],
-              "path": ["events", "{{event_id}}", "suitability"],
-              "variable": [
-                {
-                  "key": "event_id",
-                  "value": "replace_with_event_id",
-                  "description": "Event ID for suitability check"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Alternative Dates for Poor Weather",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/events/{{event_id}}/alternatives",
-              "host": ["{{baseUrl}}"],
-              "path": ["events", "{{event_id}}", "alternatives"],
-              "variable": [
-                {
-                  "key": "event_id",
-                  "value": "replace_with_event_id",
-                  "description": "Event ID for alternative suggestions"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Weather for Goa (December 10)",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/weather/Goa/2025-12-10",
-              "host": ["{{baseUrl}}"],
-              "path": ["weather", "Goa", "2025-12-10"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Weather for Lonavala (October 20)",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/weather/Lonavala/2025-10-20",
-              "host": ["{{baseUrl}}"],
-              "path": ["weather", "Lonavala", "2025-10-20"]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
