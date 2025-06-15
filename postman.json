@@ -1,0 +1,368 @@
+{
+  "info": {
+    "name": "Smart Event Planner APIs",
+    "description": "Backend service for planning outdoor events with weather integration",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000/api",
+      "description": "Base URL for local development"
+    },
+    {
+      "key": "railway_url",
+      "value": "https://your-app-name.railway.app/api",
+      "description": "Railway deployment URL"
+    }
+  ],
+  "item": [
+    {
+      "name": "Event Management",
+      "item": [
+        {
+          "name": "Create Cricket Tournament (Mumbai, March 16)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Mumbai Cricket Tournament 2025\",\n  \"location\": \"Mumbai, India\",\n  \"date\": \"2025-03-16T10:00:00.000Z\",\n  \"eventType\": \"outdoor_sports\",\n  \"description\": \"Annual cricket tournament at Oval Maidan\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/events",
+              "host": ["{{baseUrl}}"],
+              "path": ["events"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Wedding (Goa, December 10)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Beach Wedding Ceremony\",\n  \"location\": \"Goa, India\",\n  \"date\": \"2025-12-10T16:00:00.000Z\",\n  \"eventType\": \"wedding\",\n  \"description\": \"Outdoor beach wedding ceremony at sunset\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/events",
+              "host": ["{{baseUrl}}"],
+              "path": ["events"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Hiking Trip (Lonavala, October 20)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Lonavala Mountain Trek\",\n  \"location\": \"Lonavala, India\",\n  \"date\": \"2025-10-20T06:00:00.000Z\",\n  \"eventType\": \"hiking\",\n  \"description\": \"Early morning trek to Tiger's Leap viewpoint\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/events",
+              "host": ["{{baseUrl}}"],
+              "path": ["events"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List All Events",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/events",
+              "host": ["{{baseUrl}}"],
+              "path": ["events"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Event Details",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"Updated: Premium cricket tournament with international teams\",\n  \"name\": \"Mumbai International Cricket Tournament 2025\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/events/{{event_id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["events", "{{event_id}}"],
+              "variable": [
+                {
+                  "key": "event_id",
+                  "value": "replace_with_actual_event_id",
+                  "description": "Event ID from create event response"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Error Handling",
+      "item": [
+        {
+          "name": "Invalid Location Test",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/weather/InvalidCityName123/2025-06-20",
+              "host": ["{{baseUrl}}"],
+              "path": ["weather", "InvalidCityName123", "2025-06-20"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Invalid Date Format Test",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/weather/Mumbai/invalid-date",
+              "host": ["{{baseUrl}}"],
+              "path": ["weather", "Mumbai", "invalid-date"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Invalid Event ID Test",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/events/invalid-id/suitability",
+              "host": ["{{baseUrl}}"],
+              "path": ["events", "invalid-id", "suitability"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Missing Required Fields Test",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Incomplete Event\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/events",
+              "host": ["{{baseUrl}}"],
+              "path": ["events"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Past Date Weather Request",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/weather/Mumbai/2020-01-01",
+              "host": ["{{baseUrl}}"],
+              "path": ["weather", "Mumbai", "2020-01-01"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Health Check",
+      "item": [
+        {
+          "name": "API Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["health"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Set the baseUrl based on environment",
+          "if (pm.environment.get('environment') === 'production') {",
+          "    pm.globals.set('baseUrl', pm.variables.get('railway_url'));",
+          "} else {",
+          "    pm.globals.set('baseUrl', pm.variables.get('baseUrl'));",
+          "}"
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Basic response validation",
+          "pm.test('Status code is not 500', function () {",
+          "    pm.expect(pm.response.code).to.not.equal(500);",
+          "});",
+          "",
+          "// Save event ID for subsequent requests",
+          "if (pm.response.json() && pm.response.json()._id) {",
+          "    pm.globals.set('event_id', pm.response.json()._id);",
+          "}"
+        ]
+      }
+    }
+  ]
+}
+    {
+      "name": "Weather Integration",
+      "item": [
+        {
+          "name": "Get Weather for Mumbai (March 16)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/weather/Mumbai/2025-03-16",
+              "host": ["{{baseUrl}}"],
+              "path": ["weather", "Mumbai", "2025-03-16"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Check Weather Suitability for Cricket Event",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/events/{{event_id}}/weather-check",
+              "host": ["{{baseUrl}}"],
+              "path": ["events", "{{event_id}}", "weather-check"],
+              "variable": [
+                {
+                  "key": "event_id",
+                  "value": "replace_with_cricket_event_id",
+                  "description": "Cricket event ID from create event response"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Event Suitability Score",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/events/{{event_id}}/suitability",
+              "host": ["{{baseUrl}}"],
+              "path": ["events", "{{event_id}}", "suitability"],
+              "variable": [
+                {
+                  "key": "event_id",
+                  "value": "replace_with_event_id",
+                  "description": "Event ID for suitability check"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Alternative Dates for Poor Weather",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/events/{{event_id}}/alternatives",
+              "host": ["{{baseUrl}}"],
+              "path": ["events", "{{event_id}}", "alternatives"],
+              "variable": [
+                {
+                  "key": "event_id",
+                  "value": "replace_with_event_id",
+                  "description": "Event ID for alternative suggestions"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Weather for Goa (December 10)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/weather/Goa/2025-12-10",
+              "host": ["{{baseUrl}}"],
+              "path": ["weather", "Goa", "2025-12-10"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Weather for Lonavala (October 20)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/weather/Lonavala/2025-10-20",
+              "host": ["{{baseUrl}}"],
+              "path": ["weather", "Lonavala", "2025-10-20"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
