@@ -14,8 +14,11 @@ router.get('/:location/:date', async (req, res) => {
     
     // Check if date is today or in the future
     const requestDate = new Date(date);
+    requestDate.setHours(0, 0, 0, 0);  // Normalize
+
     const today = new Date();
     today.setHours(0, 0, 0, 0);
+
     
     if (requestDate.getTime() === today.getTime()) {
       // Get current weather for today

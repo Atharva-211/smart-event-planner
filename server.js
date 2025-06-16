@@ -35,6 +35,11 @@ app.get('/test', (req, res) => {
   res.json({ message: '✅ Server is running and responding!' });
 });
 
+app.get('/', (req, res) => {
+  res.json({ message: '✅ Server is running and responding!' });
+});
+
+
 // MongoDB connection
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
