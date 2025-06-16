@@ -12,7 +12,7 @@ const { errorHandler } = require('./middleware/errorHandler');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// ✅ Trust proxy for correct IP resolution behind Railway or other proxies
+// ✅ Fix #1: Trust Railway proxy
 app.set('trust proxy', 1);
 
 // Security middleware
@@ -26,9 +26,14 @@ const limiter = rateLimit({
 });
 app.use(limiter);
 
-// Body parsing middleware
+// Body parsing
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// ✅ Fix #2: Add test route to verify server is alive
+app.get('/test', (req, res) => {
+  res.json({ message: '✅ Server is running and responding!' });
+});
 
 // MongoDB connection
 mongoose.connect(process.env.MONGODB_URI, {
@@ -38,19 +43,19 @@ mongoose.connect(process.env.MONGODB_URI, {
 .then(() => console.log('Connected to MongoDB'))
 .catch(err => console.error('MongoDB connection error:', err));
 
-// Routes
+// API routes
 app.use('/api/events', eventRoutes);
 app.use('/api/weather', weatherRoutes);
 
-// Health check endpoint
-app.get('/health', (req, res) => {
+// Health check
+app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
 
-// Error handling middleware
+// Global error handler
 app.use(errorHandler);
 
-// 404 handler
+// 404 fallback
 app.use('*', (req, res) => {
   res.status(404).json({ error: 'Route not found' });
 });
